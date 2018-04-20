@@ -23,8 +23,8 @@ class DetailActivity : AppCompatActivity() {
 
         item = intent.getSerializableExtra("extra") as Item
 
-        supportActionBar!!.title = item.name
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = item.name
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         ui.desc.text=item.desc
 

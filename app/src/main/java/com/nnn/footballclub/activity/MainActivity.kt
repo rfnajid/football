@@ -3,6 +3,7 @@ package com.nnn.footballclub.activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.nnn.footballclub.R
+import com.nnn.footballclub.R.array.*
 import com.nnn.footballclub.adapter.RecyclerViewAdapter
 import com.nnn.footballclub.layout.MainActivityUI
 import com.nnn.footballclub.model.Item
@@ -23,9 +24,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initData(){
-        val name = resources.getStringArray(R.array.club_name)
-        val image = resources.obtainTypedArray(R.array.club_image)
-        val desc = resources.getStringArray(R.array.club_desc)
+        val name = resources.getStringArray(club_name)
+        val image = resources.obtainTypedArray(club_image)
+        val desc = resources.getStringArray(club_desc)
         items.clear()
         for (i in name.indices) {
             items.add(Item(name[i],

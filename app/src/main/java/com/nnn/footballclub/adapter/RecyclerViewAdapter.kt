@@ -17,6 +17,7 @@ import com.nnn.footballclub.activity.DetailActivity
 import com.nnn.footballclub.layout.ItemUI
 import com.nnn.footballclub.model.Item
 import org.jetbrains.anko.AnkoContext
+import org.jetbrains.anko.startActivity
 
 
 /**
@@ -56,9 +57,7 @@ class RecyclerViewAdapter(private val context: Context, private val items: List<
                     .into(image)
 
             card.setOnClickListener{
-                val intent : Intent = Intent(itemView.context, DetailActivity::class.java)
-                intent.putExtra("extra",item)
-                itemView.context.startActivity(intent)
+                itemView.context.startActivity<DetailActivity>("extra" to item)
             }
         }
 
