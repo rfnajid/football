@@ -47,6 +47,12 @@ data class Event (
 
 ) : Serializable{
 
+    companion object {
+        const val TABLE_FAVORITE: String = "TABLE_FAVORITE"
+        const val ID: String = "ID_"
+    }
+
+
     fun date () : String{
         return Global.dateToString(date)
     }

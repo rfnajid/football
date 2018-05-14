@@ -24,6 +24,11 @@ interface EventApi {
             @Query("id") id : Long
     ) : Observable<EventResponse>
 
+    @GET("lookupevent.php")
+    fun getEvent(
+            @Query("id") id : Long
+    ) : Observable<EventResponse>
+
     @GET("lookupteam.php")
     fun teamDetail(
             @Query("id") id : Long

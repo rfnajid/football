@@ -17,7 +17,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "END_POINT","\"https://www.thesportsdb.com/api/v1/json/1/\""
-        buildConfigField "String", "TAG","UVUVWEVWE"
+        buildConfigField "String", "TAG","\"UVUVWEVWE\""
     }
     buildTypes {
         release {
@@ -57,7 +57,7 @@ dependencies {
 
 
 
-    kapt "android.arch.lifecycle:compiler:1.0.0"
+    kapt "android.arch.lifecycle:common-java8:1.0.0"
     kapt 'com.github.bumptech.glide:compiler:4.7.1'
 
     testImplementation 'junit:junit:4.12'

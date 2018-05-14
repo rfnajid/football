@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_event_white_24dp"
         android:title="Next Match" />
 
+    <item
+        android:id="@+id/navigation_favorite"
+        android:icon="@drawable/ic_favorite_white_24dp"
+        android:title="Favorite" />
+
 </menu>

@@ -20,5 +20,7 @@
     <string name="mf">mf</string>
     <string name="fw">fw</string>
     <string name="sub">subs</string>
+    <string name="favorite">Favorite</string>
+    <string name="empty">Empty</string>
 
 </resources>
