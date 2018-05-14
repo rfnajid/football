@@ -2,7 +2,7 @@ package com.nnn.footballclub.utils.network
 
 import com.nnn.footballclub.model.responses.EventResponse
 import com.nnn.footballclub.model.responses.TeamResponse
-import com.nnn.footballclub.utils.S
+import com.nnn.footballclub.utils.Global
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -31,7 +31,7 @@ interface EventApi {
 
     companion object {
         fun create():EventApi{
-            val retrofit = S.retrofit()
+            val retrofit = Global.retrofit()
             return retrofit.create(EventApi::class.java)
         }
     }

@@ -1,7 +1,7 @@
 package com.nnn.footballclub.model
 
 import com.google.gson.annotations.SerializedName
-import com.nnn.footballclub.utils.S
+import com.nnn.footballclub.utils.Global
 import java.io.Serializable
 import java.util.*
 
@@ -16,8 +16,7 @@ data class Event (
         @SerializedName("strEvent") val name: String,
         @SerializedName("idHomeTeam") val homeId : Long,
         @SerializedName("idAwayTeam") val awayId : Long,
-        //@SerializedName("strHomeTeam") val homeTeam : String,
-        //@SerializedName("strAwayTeam") val awayTeam : String,
+
         var homeTeam : Team,
         var awayTeam : Team,
         @SerializedName("intHomeScore") val homeScore : Int?,
@@ -25,31 +24,31 @@ data class Event (
         @SerializedName("dateEvent") val date : Date,
 
         //DETAIL
-        @SerializedName("strHomeGoalDetails") val homeGoals : String? = "-",
-        @SerializedName("strHomeRedCards") val homeRed : String? = "-",
-        @SerializedName("strHomeYellowCards") val homeYellow : String? = "-",
-        @SerializedName("strHomeLineupGoalkeeper") val homeGK : String? = "-",
-        @SerializedName("strHomeLineupDefense") val homeDF : String? = "-",
-        @SerializedName("strHomeLineupMidfield") val homeMF : String? = "-",
-        @SerializedName("strHomeLineupForward") val homeFW : String? = "-",
-        @SerializedName("strHomeLineupSubstitutes") val homeSubs : String? = "-",
-        @SerializedName("strHomeFormation") val homeFormation: String? = "-",
-        @SerializedName("strAwayRedCards") val awayRed: String? = "-",
-        @SerializedName("strAwayYellowCards") val awayYellow: String? = "-",
-        @SerializedName("strAwayGoalDetails") val awayGoals : String? = "-",
-        @SerializedName("strAwayLineupGoalkeeper") val awayGK : String? = "-",
-        @SerializedName("strAwayLineupDefense") val awayDF : String? = "-",
-        @SerializedName("strAwayLineupMidfield") val awayMF : String? = "-",
-        @SerializedName("strAwayLineupForward") val awayFW : String? = "-",
-        @SerializedName("strAwayLineupSubstitutes") val awaySubs : String? = "-",
-        @SerializedName("strAwayFormation") val awayFormation : String? = "-",
-        @SerializedName("intHomeShots") val homeShots : Int? = 0,
-        @SerializedName("intAwayShots") val awayShots : Int? = 0
+        @SerializedName("strHomeGoalDetails")       private val homeGoals : String?,
+        @SerializedName("strHomeRedCards")          private val homeRed : String?,
+        @SerializedName("strHomeYellowCards")       private val homeYellow : String?,
+        @SerializedName("strHomeLineupGoalkeeper")  private val homeGK : String? ,
+        @SerializedName("strHomeLineupDefense")     private val homeDF : String? ,
+        @SerializedName("strHomeLineupMidfield")    private val homeMF : String? ,
+        @SerializedName("strHomeLineupForward")     private val homeFW : String? ,
+        @SerializedName("strHomeLineupSubstitutes") private val homeSubs : String? ,
+        @SerializedName("strHomeFormation")         private val homeFormation: String? ,
+        @SerializedName("strAwayRedCards")          private val awayRed: String? ,
+        @SerializedName("strAwayYellowCards")       private val awayYellow: String? ,
+        @SerializedName("strAwayGoalDetails")       private val awayGoals : String? ,
+        @SerializedName("strAwayLineupGoalkeeper")  private val awayGK : String? ,
+        @SerializedName("strAwayLineupDefense")     private val awayDF : String? ,
+        @SerializedName("strAwayLineupMidfield")    private val awayMF : String? ,
+        @SerializedName("strAwayLineupForward")     private val awayFW : String? ,
+        @SerializedName("strAwayLineupSubstitutes") private val awaySubs : String? ,
+        @SerializedName("strAwayFormation")         private val awayFormation : String? ,
+        @SerializedName("intHomeShots")             val homeShots : Int?,
+        @SerializedName("intAwayShots")             val awayShots : Int?
 
 ) : Serializable{
 
     fun date () : String{
-        return S.dateToString(date)
+        return Global.dateToString(date)
     }
 
     //HOME
@@ -93,6 +92,12 @@ data class Event (
         if(homeFW.isNullOrEmpty())
             return "-"
         return convert(homeFW)
+    }
+
+    fun homeFormation() : String?{
+        if(homeFormation.isNullOrEmpty())
+            return "-"
+        return homeFormation
     }
 
     fun homeSubs() : String?{
@@ -143,6 +148,12 @@ data class Event (
         if(awayFW.isNullOrEmpty())
             return "-"
         return convert(awayFW)
+    }
+
+    fun awayFormation() : String?{
+        if(awayFormation.isNullOrEmpty())
+            return "-"
+        return awayFormation
     }
 
     fun awaySubs() : String?{

@@ -24,7 +24,7 @@ class RecyclerViewAdapter(private val context: Context, private val data: List<E
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             ViewHolder(
-                    //ItemUI().createView(AnkoContext.Companion.create(context,parent,false))
+
                     LayoutInflater.from(context).inflate(R.layout.item_view,parent,false)
             )
 

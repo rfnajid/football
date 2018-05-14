@@ -15,7 +15,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:textStyle="bold"
-            android:text="Sunday, 20 May 2019"/>
+            android:text="@string/dummy_date"/>
 
         <!-- TEAM -->
         <LinearLayout
@@ -31,7 +31,7 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -50,7 +50,7 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
         </LinearLayout>
 
@@ -76,6 +76,7 @@
                 android:gravity="center"
                 android:textSize="24sp"
                 android:textStyle="bold"
+                android:textAllCaps="true"
                 android:text="VS"/>
 
             <ImageView
@@ -101,17 +102,17 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="3"/>
+                android:text="@string/dummy_number"/>
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:textStyle="bold"
+                android:text="@string/score"
                 android:textAllCaps="true"
-                android:text="score"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textScoreAway"
@@ -120,7 +121,7 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="2"/>
+                android:text="@string/dummy_number"/>
 
         </LinearLayout>
 
@@ -138,17 +139,17 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:textStyle="bold"
+                android:text="@string/goal"
                 android:textAllCaps="true"
-                android:text="goal"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textGoalAway"
@@ -157,7 +158,7 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
         </LinearLayout>
 
@@ -175,17 +176,17 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:textStyle="bold"
+                android:text="@string/red"
                 android:textAllCaps="true"
-                android:text="red cards"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textRedAway"
@@ -194,7 +195,7 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
         </LinearLayout>
 
@@ -212,17 +213,17 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:textStyle="bold"
+                android:text="@string/yellow"
                 android:textAllCaps="true"
-                android:text="yellow cards"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textYellowAway"
@@ -231,7 +232,7 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
         </LinearLayout>
 
@@ -249,17 +250,17 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:textStyle="bold"
+                android:text="@string/shot"
                 android:textAllCaps="true"
-                android:text="shots"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textShotAway"
@@ -268,7 +269,7 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
         </LinearLayout>
 
@@ -286,18 +287,18 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:textStyle="bold"
+                android:text="@string/formation"
                 android:textAllCaps="true"
                 android:textSize="13sp"
-                android:text="formation"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textFormationAway"
@@ -306,7 +307,7 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
         </LinearLayout>
 
@@ -316,10 +317,9 @@
             android:layout_marginBottom="30dp"
             android:layout_marginTop="20dp"
             android:gravity="center"
+            android:text="@string/lineup"
             android:textAllCaps="true"
-            android:textStyle="bold"
-            android:text="lineup"
-            />
+            android:textStyle="bold" />
 
         <!-- GK -->
         <LinearLayout
@@ -335,17 +335,17 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:textStyle="bold"
+                android:text="@string/gk"
                 android:textAllCaps="true"
-                android:text="GK"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textGKAway"
@@ -354,7 +354,7 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
         </LinearLayout>
 
@@ -372,17 +372,17 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:textStyle="bold"
+                android:text="@string/df"
                 android:textAllCaps="true"
-                android:text="df"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textDFAway"
@@ -391,7 +391,7 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
         </LinearLayout>
 
@@ -409,17 +409,17 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:textStyle="bold"
+                android:text="@string/mf"
                 android:textAllCaps="true"
-                android:text="mf"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textMFAway"
@@ -428,7 +428,7 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
         </LinearLayout>
 
@@ -446,17 +446,17 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:textStyle="bold"
+                android:text="@string/fw"
                 android:textAllCaps="true"
-                android:text="fw"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textFWAway"
@@ -465,7 +465,7 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
         </LinearLayout>
 
@@ -483,17 +483,17 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:textStyle="bold"
+                android:text="@string/sub"
                 android:textAllCaps="true"
-                android:text="SUBS"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textSubAway"
@@ -502,7 +502,7 @@
                 android:layout_weight="2"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="AC MILAN"/>
+                android:text="@string/dummy_short"/>
 
         </LinearLayout>
 

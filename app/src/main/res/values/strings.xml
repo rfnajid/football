@@ -1,60 +1,24 @@
 <resources>
     <string name="app_name">Football Club</string>
 
-    <string-array name="club_name">
-        <item>Barcelona FC</item>
-        <item>Real Madrid FC</item>
-        <item>Bayern Munchen FC</item>
-        <item>Manchester City FC</item>
-        <item>Manchester United FC</item>
-        <item>Chelsea FC</item>
-        <item>AC Milan FC</item>
-        <item>Arsenal FC</item>
-    </string-array>
+    <string name="dummy_short">Lorem Ipsum</string>
+    <string name="dummy_long">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+    <string name="dummy_number">2</string>
+    <string name="dummy_date">Sun, 24 May 2018</string>
 
-    <array name="club_image">
-        <item>@drawable/img_barca</item>
-        <item>@drawable/img_madrid</item>
-        <item>@drawable/img_bayern</item>
-        <item>@drawable/img_city</item>
-        <item>@drawable/img_mu</item>
-        <item>@drawable/img_chelsea</item>
-        <item>@drawable/img_acm</item>
-        <item>@drawable/img_arsenal</item>
-    </array>
+    <!-- TEXT ON LAYOUT -->
+    <string name="vs">vs</string>
+    <string name="score">score</string>
+    <string name="goal">goal</string>
+    <string name="red">red cards</string>
+    <string name="yellow">yellow cards</string>
+    <string name="shot">shots</string>
+    <string name="formation">formation</string>
+    <string name="lineup">lineup</string>
+    <string name="gk">gk</string>
+    <string name="df">df</string>
+    <string name="mf">mf</string>
+    <string name="fw">fw</string>
+    <string name="sub">subs</string>
 
-    <array name="club_desc">
-        <item>Futbol Club Barcelona, commonly known as Barcelona and familiarly as Barça, is a
-            professional football club based in Barcelona, Catalonia, Spain
-        </item>
-        <item>Real Madrid Club de Fútbol, commonly known as Real Madrid, or simply as Real, is a
-            professional football club based in Madrid, Spain. Founded on 6 March 1902 as Madrid
-            Football Club, the club has traditionally worn a white home kit since inception
-        </item>
-        <item>Fußball-Club Bayern München e.V., commonly known as FC Bayern München, FCB, Bayern
-            Munich, or FC Bayern, is a German sports club based in Munich, Bavaria
-        </item>
-        <item>Manchester City Football Club is a football club in Manchester, England. Founded in
-            1880 as St. Mark's, it became Ardwick Association Football Club in 1887 and Manchester
-            City in 1894
-        </item>
-        <item>Manchester United Football Club is a professional football club based in Old Trafford,
-            Greater Manchester, England, that competes in the Premier League, the top flight of
-            English football
-        </item>
-        <item>Chelsea Football Club is a professional football club in London, England, that
-            competes in the Premier League. Founded in 1905, the club's home ground since then has
-            been Stamford Bridge
-        </item>
-        <item>Associazione Calcio Milan, commonly referred to as A.C. Milan or simply Milan, is a
-            professional football club in Milan, Italy, founded in 1899.
-        </item>
-        <item>Arsenal Football Club is a professional football club based in Islington, London,
-            England, that plays in the Premier League, the top flight of English football.
-        </item>
-    </array>
-    <string name="title_activity_main2">MainActivity2</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
 </resources>
