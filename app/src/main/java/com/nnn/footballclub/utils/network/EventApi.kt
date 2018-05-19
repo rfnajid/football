@@ -15,7 +15,7 @@ import retrofit2.http.Query
 interface EventApi {
 
     @GET("eventspastleague.php")
-    fun getLast (
+    fun getPast (
             @Query("id") id : Long
     ) : Observable<EventResponse>
 

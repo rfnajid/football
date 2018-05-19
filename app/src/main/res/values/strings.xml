@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Football Club</string>
 
+    <string name="page_past">Last Match</string>
+    <string name="page_detail">Detail Match</string>
+    <string name="page_next">Next Match</string>
+    <string name="page_favorite">Favorite</string>
+
     <string name="dummy_short">Lorem Ipsum</string>
     <string name="dummy_long">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
     <string name="dummy_number">2</string>

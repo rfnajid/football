@@ -19,7 +19,7 @@ class DBHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "FavoriteTeam.db", n
             if (instance == null) {
                 instance = DBHelper(ctx.applicationContext)
             }
-            return instance!!
+            return instance as DBHelper
         }
     }
 

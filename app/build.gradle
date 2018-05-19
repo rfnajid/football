@@ -6,6 +6,12 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+kotlin {
+    experimental {
+        coroutines 'enable'
+    }
+}
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -39,6 +45,9 @@ dependencies {
     implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
     // Anko SQL
     implementation "org.jetbrains.anko:anko-sqlite:$anko_version"
+    //Coroutine
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5'
+    implementation "org.jetbrains.anko:anko-coroutines:$anko_version"
 
     // Android Layout
     implementation "com.android.support:appcompat-v7:$support_version"

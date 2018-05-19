@@ -8,5 +8,5 @@ import com.nnn.footballclub.model.Event
  */
 
 data class EventResponse(
-    var events : List<Event>
+    val events : List<Event>
 )
