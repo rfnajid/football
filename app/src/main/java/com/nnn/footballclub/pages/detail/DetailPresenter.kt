@@ -11,10 +11,8 @@ import com.nnn.footballclub.model.db.FavoriteDB
  * Created by ridhaaaaazis on 18/05/18.
  */
 
-class DetailPresenter (event : Event, view : DetailContract.View) : DetailContract.Presenter{
+class DetailPresenter (private val event : Event, private val view : DetailContract.View) : DetailContract.Presenter{
 
-    private val event : Event = event
-    private val view : DetailContract.View = view
     private var context : Context = (view as Activity).applicationContext
     private val favoriteDB : FavoriteDB = FavoriteDB(context)
     private var isFavorite : Boolean= false

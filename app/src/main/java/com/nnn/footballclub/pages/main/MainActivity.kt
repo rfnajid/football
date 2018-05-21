@@ -22,8 +22,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         mainPresenter = MainPresenter(this)
         mainPresenter.start()
 
-        //TODO("Change RETROFIT+RXJAVA to COROUTINE")
-
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

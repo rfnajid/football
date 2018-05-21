@@ -1,7 +1,6 @@
 package com.nnn.footballclub.pages.main
 
 import android.support.v4.app.Fragment
-import com.nnn.footballclub.model.Event
 import com.nnn.footballclub.model.responses.EventResponse
 import com.nnn.footballclub.model.responses.TeamResponse
 import com.nnn.footballclub.utils.base.BasePresenter
@@ -22,7 +21,7 @@ interface MainContract{
         fun loadData()
         fun loadFavorite(list : List<Long>)
         fun loadEvent(response : EventResponse, isFavorite : Boolean=false)
-        fun loadTeam(response: TeamResponse, event: Event, isHome : Boolean)
+        fun loadTeam(response: TeamResponse, index: Int, isHome : Boolean)
     }
 
     interface MainView : BaseView<MainPresenter> {

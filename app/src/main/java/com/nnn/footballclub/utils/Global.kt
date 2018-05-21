@@ -2,6 +2,7 @@ package com.nnn.footballclub.utils
 
 import android.content.Context
 import android.util.Log
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.nnn.footballclub.BuildConfig
 import okhttp3.OkHttpClient
@@ -18,21 +19,17 @@ import java.util.*
  * Created by ridhaaaaazis on 01/05/18.
  */
 
-class Global {
-    companion object {
+object Global {
 
-        const val idLeague : Long = 4328
+    const val idLeague : Long = 4328
 
-        fun retrofit():Retrofit{
-            val gson = GsonBuilder()
-                    .setDateFormat("yyyy-MM-dd")
-                    .create()
-
+    val retrofit : () -> Retrofit
+        get() = {
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.NONE
             val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
-            return Retrofit.Builder()
+            Retrofit.Builder()
                     .addCallAdapterFactory(
                             RxJava2CallAdapterFactory.create())
                     .client(client)
@@ -42,18 +39,25 @@ class Global {
                     .build()
         }
 
-        fun log(msg : String){
-            Log.d(BuildConfig.TAG,msg)
-        }
+    val gson :Gson
+        get () = GsonBuilder()
+                .setDateFormat("yyyy-MM-dd")
+                .create()
 
-        fun error(context : Context, msg : String){
-            context.toast("Error : "+msg)
-            log(msg)
+    fun log(msg : String,type : Int=Log.DEBUG){
+        when(type) {
+            Log.DEBUG -> Log.d(BuildConfig.TAG, msg)
+            Log.ERROR -> Log.e(BuildConfig.TAG, msg)
         }
+    }
 
-        fun dateToString(date : Date) : String{
-            val format = SimpleDateFormat("E, dd MMMM yyyy")
-            return format.format(date)
-        }
+    fun error(context : Context, msg : String){
+        context.toast("Error : "+msg)
+        log(msg)
+    }
+
+    fun dateToString(date : Date) : String{
+        val format = SimpleDateFormat("E, dd MMMM yyyy")
+        return format.format(date)
     }
 }

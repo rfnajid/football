@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.nnn.footballclub.R
+import com.nnn.footballclub.R.id.textEmpty
 import com.nnn.footballclub.pages.main.ListPresenter.TYPE
+import com.nnn.footballclub.utils.Global
 import org.jetbrains.anko.support.v4.dip
 
 
@@ -31,7 +33,8 @@ class ListFragment : Fragment (),MainContract.ListView{
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        listPresenter = ListPresenter(this)
+        //listPresenter = ListPresenterRetro(this)
+        listPresenter = ListPresenterAnko(this)
         listPresenter.start()
 
         val view = inflater.inflate(R.layout.list_view,container,false)
@@ -57,10 +60,15 @@ class ListFragment : Fragment (),MainContract.ListView{
     }
 
     override fun empty(bool : Boolean){
+        Global.log("fun empty on VIEW : ${bool}")
+
+        try{
         if(bool){
             textEmpty.visibility=View.VISIBLE
         }else{
             textEmpty.visibility=View.GONE
+        }}catch (e : Exception){
+            Global.log("Empty exception : ${e.message}")
         }
     }
 
@@ -68,4 +76,3 @@ class ListFragment : Fragment (),MainContract.ListView{
         listPresenter = presenter
     }
 }
-

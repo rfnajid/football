@@ -10,7 +10,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.nnn.footballclub.R
 import com.nnn.footballclub.model.Event
 import com.nnn.footballclub.pages.detail.DetailActivity
-import kotlinx.android.synthetic.main.item_view.view.*
+import com.nnn.footballclub.utils.Global
 import org.jetbrains.anko.startActivity
 
 
@@ -39,6 +39,8 @@ class RecyclerViewAdapter(private val context: Context, private val data: List<E
         val view = view
 
         fun bindItem(data: Event) {
+
+            Global.log("BIND ITEM : $data")
 
             view.textDate.text = data.date()
 
