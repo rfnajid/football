@@ -11,6 +11,7 @@ import com.nnn.footballclub.R
 import com.nnn.footballclub.model.Event
 import com.nnn.footballclub.pages.detail.DetailActivity
 import com.nnn.footballclub.utils.Global
+import kotlinx.android.synthetic.main.item_view.view.*
 import org.jetbrains.anko.startActivity
 
 

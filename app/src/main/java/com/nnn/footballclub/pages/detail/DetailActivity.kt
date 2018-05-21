@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.nnn.footballclub.R
 import com.nnn.footballclub.model.Event
+import kotlinx.android.synthetic.main.activity_detail.*
 
 
 class DetailActivity : AppCompatActivity(), DetailContract.View{

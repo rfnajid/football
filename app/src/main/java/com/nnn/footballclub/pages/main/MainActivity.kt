@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.nnn.footballclub.R
 import com.nnn.footballclub.R.layout.activity_main
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener, MainContract.MainView {
 

@@ -7,9 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.nnn.footballclub.R
-import com.nnn.footballclub.R.id.textEmpty
 import com.nnn.footballclub.pages.main.ListPresenter.TYPE
 import com.nnn.footballclub.utils.Global
+import kotlinx.android.synthetic.main.list_view.*
+import kotlinx.android.synthetic.main.list_view.view.*
 import org.jetbrains.anko.support.v4.dip
 
 
