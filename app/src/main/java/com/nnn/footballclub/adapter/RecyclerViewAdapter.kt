@@ -25,7 +25,6 @@ class RecyclerViewAdapter(private val context: Context, private val data: List<E
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             ViewHolder(
-
                     LayoutInflater.from(context).inflate(R.layout.item_view,parent,false)
             )
 

@@ -38,7 +38,7 @@ class DetailActivity : AppCompatActivity(), DetailContract.View{
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_detail, this.menu)
 
-        presenter.start()
+        presenter.start(this)
 
         return super.onCreateOptionsMenu(this.menu)
     }

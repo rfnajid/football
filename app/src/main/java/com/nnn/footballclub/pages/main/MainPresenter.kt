@@ -1,5 +1,6 @@
 package com.nnn.footballclub.pages.main
 
+import android.content.Context
 import android.support.v4.app.Fragment
 import com.nnn.footballclub.R
 
@@ -12,7 +13,7 @@ class MainPresenter(view : MainContract.MainView) : MainContract.MainPresenter{
 
     val view = view
 
-    override fun start() {
+    override fun start(context:Context) {
         navMenuSelected(R.id.navigation_past)
     }
 

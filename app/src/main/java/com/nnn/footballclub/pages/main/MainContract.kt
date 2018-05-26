@@ -29,7 +29,8 @@ interface MainContract{
     }
 
     interface ListView : BaseView<ListPresenter>{
-        fun empty(bool : Boolean)
+        fun empty(bool : Boolean=true)
+        fun loading(show : Boolean=true)
         var type : com.nnn.footballclub.pages.main.ListPresenter.TYPE
     }
 

@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         navigation.setOnNavigationItemSelectedListener(this)
 
         mainPresenter = MainPresenter(this)
-        mainPresenter.start()
+        mainPresenter.start(this)
 
     }
 

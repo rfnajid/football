@@ -1,4 +1,5 @@
 package com.nnn.footballclub.pages.main
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -34,9 +35,8 @@ class ListFragment : Fragment (),MainContract.ListView{
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        //listPresenter = ListPresenterRetro(this)
-        listPresenter = ListPresenterAnko(this)
-        listPresenter.start()
+        listPresenter = ListPresenter(this)
+        listPresenter.start(context as Context)
 
         val view = inflater.inflate(R.layout.list_view,container,false)
         view.recycler.adapter = (listPresenter as ListPresenter).adapter
@@ -60,17 +60,20 @@ class ListFragment : Fragment (),MainContract.ListView{
         listPresenter.onResume()
     }
 
-    override fun empty(bool : Boolean){
-        Global.log("fun empty on VIEW : ${bool}")
-
-        try{
-        if(bool){
-            textEmpty.visibility=View.VISIBLE
-        }else{
+    override fun empty(show : Boolean){
+        loading(false)
+        textEmpty.text="There is No Data"
+        textEmpty.visibility=View.VISIBLE
+        if(!show)
             textEmpty.visibility=View.GONE
-        }}catch (e : Exception){
-            Global.log("Empty exception : ${e.message}")
-        }
+    }
+
+    override fun loading(show : Boolean){
+        Global.log("Loading ? $show")
+        textEmpty.text = "Loading..."
+        textEmpty.visibility=View.VISIBLE
+        if(!show)
+            textEmpty.visibility=View.GONE
     }
 
     override fun setPresenter(presenter: MainContract.ListPresenter) {

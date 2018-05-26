@@ -13,11 +13,18 @@ import com.nnn.footballclub.model.db.FavoriteDB
 
 class DetailPresenter (private val event : Event, private val view : DetailContract.View) : DetailContract.Presenter{
 
-    private var context : Context = (view as Activity).applicationContext
-    private val favoriteDB : FavoriteDB = FavoriteDB(context)
+    private lateinit var context : Context
+    private lateinit var favoriteDB : FavoriteDB
     private var isFavorite : Boolean= false
 
-    override fun start() {
+    override fun start(context : Context) {
+        this.context=context
+        startTest(context,FavoriteDB(context))
+    }
+
+    fun startTest(context : Context,favoriteDB: FavoriteDB){
+        this.favoriteDB=favoriteDB
+        this.context=context
         isFavorite = favoriteDB.isExist(event)
         view.updateFavoriteLayout(isFavorite)
         view.loadData(event)

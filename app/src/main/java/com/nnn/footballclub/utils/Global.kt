@@ -5,12 +5,7 @@ import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.nnn.footballclub.BuildConfig
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import org.jetbrains.anko.toast
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,23 +18,7 @@ object Global {
 
     const val idLeague : Long = 4328
 
-    val retrofit : () -> Retrofit
-        get() = {
-            val interceptor = HttpLoggingInterceptor()
-            interceptor.level = HttpLoggingInterceptor.Level.NONE
-            val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
-
-            Retrofit.Builder()
-                    .addCallAdapterFactory(
-                            RxJava2CallAdapterFactory.create())
-                    .client(client)
-                    .addConverterFactory(
-                            GsonConverterFactory.create(gson))
-                    .baseUrl(BuildConfig.END_POINT)
-                    .build()
-        }
-
-    val gson :Gson
+    val gson : Gson
         get () = GsonBuilder()
                 .setDateFormat("yyyy-MM-dd")
                 .create()
@@ -49,6 +28,11 @@ object Global {
             Log.DEBUG -> Log.d(BuildConfig.TAG, msg)
             Log.ERROR -> Log.e(BuildConfig.TAG, msg)
         }
+    }
+
+    fun log(msg : String) : Int{
+        System.out.println("Debug : ${BuildConfig.TAG} : $msg")
+        return 0
     }
 
     fun error(context : Context, msg : String){
