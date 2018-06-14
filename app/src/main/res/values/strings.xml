@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Football Club</string>
+    <string name="app_name">Football</string>
 
     <string name="page_past">Last Match</string>
     <string name="page_detail">Detail Match</string>
@@ -7,6 +7,7 @@
     <string name="page_favorite">Favorite</string>
 
     <string name="dummy_short">Lorem Ipsum</string>
+    <string name="dummy_medium">Lorem Ipsum Doloret Sit</string>
     <string name="dummy_long">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
     <string name="dummy_number">2</string>
     <string name="dummy_date">Sun, 24 May 2018</string>
@@ -25,7 +26,49 @@
     <string name="mf">mf</string>
     <string name="fw">fw</string>
     <string name="sub">subs</string>
-    <string name="favorite">Favorite</string>
-    <string name="empty">Empty</string>
+    <string name="empty">empty</string>
+    <string name="city">city</string>
+    <string name="founded">founded</string>
+    <string name="stadium">stadium</string>
+    <string name="league">league</string>
+    <string name="manager">manager</string>
+    <string name="alias">alias</string>
+    <string name="born">Born Date</string>
+    <string name="nationality">Nationality</string>
+    <string name="team">Team</string>
+    <string name="weight">Weight</string>
+    <string name="height">Height</string>
+    <string name="search_hint">Search...</string>
+
+
+    <!-- MENU -->
+    <string name="menu_favorite">Favorite</string>
+    <string name="menu_search">Search...</string>
+    <string name="tab_past">Past</string>
+    <string name="tab_next">Next</string>
+    <string name="tab_match">Matches</string>
+    <string name="tab_team">Teams</string>
+    <string name="tab_overview">Overview</string>
+    <string name="tab_player">Players</string>"
+
+
+    <!-- DATA -->
+    <string-array name="league_name">
+        <item>English Premier League</item>
+        <item>Spanish La Liga</item>
+        <item>Italian Serie A</item>
+        <item>French Ligue 1</item>
+        <item>German Bundesliga</item>
+        <item>FIFA World Cup</item>
+    </string-array>
+
+    <integer-array name="league_id">
+        <item>4328</item>
+        <item>4335</item>
+        <item>4332</item>
+        <item>4334</item>
+        <item>4331</item>
+        <item>4429</item>
+    </integer-array>
 
 </resources>

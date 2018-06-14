@@ -1,5 +1,6 @@
 package com.nnn.footballclub.model.responses
 
+import com.google.gson.annotations.SerializedName
 import com.nnn.footballclub.model.Event
 
 
@@ -8,5 +9,5 @@ import com.nnn.footballclub.model.Event
  */
 
 data class EventResponse(
-    val events : List<Event>
+        @SerializedName (value="events", alternate=arrayOf("event")) val events : List<Event>
 )

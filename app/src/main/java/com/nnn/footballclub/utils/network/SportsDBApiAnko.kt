@@ -1,6 +1,7 @@
 package com.nnn.footballclub.utils.network
 
 import com.nnn.footballclub.BuildConfig
+import com.nnn.footballclub.utils.Global
 import java.net.URL
 
 /**
@@ -25,12 +26,33 @@ object SportsDBApiAnko{
         return "${BuildConfig.END_POINT}lookupevent.php?id=${id}"
     }
 
-    fun teamDetail(id : Long): String{
+    fun getTeams(idLeague : Long) : String{
+        return "${BuildConfig.END_POINT}lookup_all_teams.php?id=${idLeague}"
+    }
+
+    fun getTeam(id : Long): String{
         return "${BuildConfig.END_POINT}lookupteam.php?id=${id}"
+    }
+
+    fun getPlayers(idTeam : Long) : String{
+        val url = "${BuildConfig.END_POINT}lookup_all_players.php?id=${idTeam}"
+        Global.log(url)
+        return url
+    }
+
+    fun searchTeam(query : String) : String {
+        val url = "${BuildConfig.END_POINT}searchteams.php?t=${query}"
+        Global.log(url)
+        return url
+    }
+
+    fun searchMatch(query : String) : String{
+        val url = "${BuildConfig.END_POINT}searchevents.php?e=${query}"
+        Global.log(url)
+        return url
     }
 
     fun doRequest(url: String): String {
         return URL(url).readText()
     }
-
 }

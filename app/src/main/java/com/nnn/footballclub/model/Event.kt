@@ -1,6 +1,7 @@
 package com.nnn.footballclub.model
 
 import com.google.gson.annotations.SerializedName
+import com.nnn.footballclub.model.favorite.FavEvent
 import com.nnn.footballclub.utils.Global
 import java.io.Serializable
 import java.util.*
@@ -46,12 +47,6 @@ data class Event (
         @SerializedName("intAwayShots")             val awayShots : Int?
 
 ) : Serializable{
-
-    companion object {
-        const val TABLE_FAVORITE: String = "TABLE_FAVORITE"
-        const val ID: String = "ID_"
-    }
-
 
     fun date () : String{
         return Global.dateToString(date)
@@ -167,10 +162,30 @@ data class Event (
             return "-"
         return convert(awaySubs)
     }
-    
+
+    fun isACopyOfFavEvent() : Boolean{
+        return (homeId==0L || awayId==0L)
+    }
 
     private fun convert(value : String?) : String?{
         return value?.replace(";","\n")
     }
 
+    companion object {
+        fun copy(fav : FavEvent) : Event{
+            return Event(
+                    fav.id?.toLong() as Long,
+                    fav.homeName+" vs "+fav.awayName,
+                    0,0,
+                    Team(0,fav.homeName.toString(),"",fav.homeLogo.toString(),
+                            0,"","","","","",""),
+                    Team(0,fav.awayName.toString(),"",fav.awayLogo.toString(),
+                            0,"","","","","",""),
+                    fav.homeScore?.toInt(), fav.awayScore?.toInt(),Global.stringToDate(fav.date.toString()),
+                    "","","","","","",
+                    "","","","","","","",
+                    "","","","","",null,null
+            )
+        }
+    }
 }

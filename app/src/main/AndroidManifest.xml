@@ -7,18 +7,26 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.nnn.footballclub.pages.main.MainActivity">
+        <activity
+            android:name=".pages.main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name="com.nnn.footballclub.pages.detail.DetailActivity" />
+        <activity android:name=".pages.detail.match.MatchDetailActivity" />
+        <activity android:name=".pages.detail.player.PlayerDetailActivity" />
+        <activity
+            android:name=".pages.detail.team.TeamDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".pages.search.SearchActivity"/>
     </application>
 
 </manifest>

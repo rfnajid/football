@@ -1,8 +1,14 @@
 package com.nnn.footballclub.pages.main
 
 import android.support.v4.app.Fragment
+import com.nnn.footballclub.model.Event
+import com.nnn.footballclub.model.Team
 import com.nnn.footballclub.model.responses.EventResponse
 import com.nnn.footballclub.model.responses.TeamResponse
+import com.nnn.footballclub.pages.main.match.MatchItemAdapter
+import com.nnn.footballclub.pages.main.team.TeamItemAdapter
+import com.nnn.footballclub.utils.base.BaseListFragment
+import com.nnn.footballclub.utils.base.BaseListPresenter
 import com.nnn.footballclub.utils.base.BasePresenter
 import com.nnn.footballclub.utils.base.BaseView
 
@@ -12,27 +18,28 @@ import com.nnn.footballclub.utils.base.BaseView
  */
 interface MainContract{
 
-    interface MainPresenter : BasePresenter {
-        fun navMenuSelected(id : Int)
-    }
-
-    interface ListPresenter : BasePresenter{
-        fun onResume()
-        fun loadData()
-        fun loadFavorite(list : List<Long>)
-        fun loadEvent(response : EventResponse, isFavorite : Boolean=false)
-        fun loadTeam(response: TeamResponse, index: Int, isHome : Boolean)
-    }
-
-    interface MainView : BaseView<MainPresenter> {
+    interface _MainView : BaseView<_MainPresenter> {
         fun selectFragment(fragment : Fragment)
+        fun hideSearchButton(hide : Boolean)
+        fun changeTitle(newTitle : String)
     }
 
-    interface ListView : BaseView<ListPresenter>{
-        fun empty(bool : Boolean=true)
-        fun loading(show : Boolean=true)
-        var type : com.nnn.footballclub.pages.main.ListPresenter.TYPE
+    interface _MainPresenter : BasePresenter {
+        var type : MainPresenter.TYPE
+        fun loadFragment(id : Int)
     }
+
+    abstract class _MatchListView : BaseListFragment<Event,MatchItemAdapter>()
+
+    abstract class _MatchListPresenter : BaseListPresenter<Event, MatchItemAdapter>(){
+        abstract fun loadFavorite()
+        abstract fun loadEvent(response : EventResponse)
+        abstract fun loadTeam(response: TeamResponse, index: Int, isHome : Boolean)
+    }
+
+    abstract class _TeamListView : BaseListFragment<Team,TeamItemAdapter>()
+
+    abstract class _TeamListPresenter : BaseListPresenter<Team, TeamItemAdapter>()
 
 
 }

@@ -7,7 +7,26 @@
     android:layout_height="match_parent"
     tools:context=".pages.main.MainActivity">
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp" >
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:title="@string/app_name"/>
+
+    </android.support.design.widget.AppBarLayout>
+
     <FrameLayout
+        android:layout_below="@+id/appbar"
+        android:layout_above="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/frame" />
@@ -23,5 +42,4 @@
         app:itemTextColor="#FFF"
         android:background="@color/colorPrimary"
         app:menu="@menu/navigation" />
-
 </RelativeLayout>

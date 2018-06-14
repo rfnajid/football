@@ -1,0 +1,109 @@
+package com.nnn.footballclub.pages.detail.match
+
+import android.content.Context
+import com.nnn.footballclub.R
+import com.nnn.footballclub.model.Event
+import com.nnn.footballclub.model.db.FavoriteEventDB
+import com.nnn.footballclub.model.responses.EventResponse
+import com.nnn.footballclub.model.responses.TeamResponse
+import com.nnn.footballclub.utils.Global
+import com.nnn.footballclub.utils.base.BaseDetailContract
+import com.nnn.footballclub.utils.network.SportsDBApiAnko
+import com.nnn.footballclub.utils.provider.CoroutineContextProvider
+import kotlinx.coroutines.experimental.async
+import org.jetbrains.anko.coroutines.experimental.bg
+
+
+/**
+ * Created by ridhaaaaazis on 18/05/18.
+ */
+
+class MatchDetailPresenter (private var event : Event,
+                            private val view : BaseDetailContract._View<Event>,
+                            private val coroutineContext : CoroutineContextProvider = CoroutineContextProvider()
+) : BaseDetailContract._Presenter {
+
+    private lateinit var context : Context
+    private lateinit var favoriteEventDB : FavoriteEventDB
+    private var isFavorite : Boolean= false
+
+    override fun start(context : Context) {
+        this.context=context
+        start(context,FavoriteEventDB(context))
+    }
+
+    fun start(context: Context, favoriteEventDB: FavoriteEventDB){ //for testing
+        this.favoriteEventDB=favoriteEventDB
+        isFavorite = favoriteEventDB.isExist(event)
+        view.updateFavoriteLayout(isFavorite)
+
+        Global.log("hid : ${event.homeId}, aid : ${event.awayId}, isCopy : ${event.isACopyOfFavEvent()}")
+
+        if(event.isACopyOfFavEvent()){
+
+            async(coroutineContext.main) {
+                val data = bg {
+                    Global.gson.fromJson(SportsDBApiAnko
+                            .doRequest(SportsDBApiAnko.getEvent(event.id)),
+                            EventResponse::class.java
+                    )
+                }
+                event = data.await().events.get(0)
+                Global.log(event.toString())
+
+                loadTeam()
+            }
+
+        }else{
+            view.loadData(event)
+        }
+    }
+
+    override fun onOptionsItemSelected(id: Int?) : Boolean {
+        return when (id){
+            R.id.menu_favorite -> {
+                favorite()
+                true
+            }
+            else -> false
+        }
+    }
+
+    override fun favorite() {
+        if(isFavorite){
+            favoriteEventDB.remove(event)
+        }else{
+            favoriteEventDB.add(event)
+        }
+        isFavorite=!isFavorite
+        view.updateFavoriteLayout(isFavorite)
+    }
+
+
+    private fun loadTeam(){
+        async(coroutineContext.main){
+            val data = bg {
+                Global.gson.fromJson(SportsDBApiAnko
+                        .doRequest(SportsDBApiAnko.getTeam(event.homeId)),
+                        TeamResponse::class.java
+                )
+            }
+
+            event.homeTeam=data.await().teams.get(0)
+
+            async(coroutineContext) {
+                val data = bg {
+                    Global.gson.fromJson(SportsDBApiAnko
+                            .doRequest(SportsDBApiAnko.getTeam(event.awayId)),
+                            TeamResponse::class.java
+                    )
+                }
+
+                event.awayTeam=data.await().teams.get(0)
+
+                view.loadData(event)
+            }
+
+        }
+    }
+}
