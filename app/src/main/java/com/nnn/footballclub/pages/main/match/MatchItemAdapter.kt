@@ -35,31 +35,33 @@ class MatchItemAdapter(private val context: Context, private val data: List<Even
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
 
-        fun bindItem(data: Event) {
+        fun bindItem(data: Event?) {
 
-            itemView.textDate.text = data.date()
+            itemView.textDate.text = data?.date()
 
-            itemView.titleHome.text= data.homeTeam.name
-            itemView.titleAway.text= data.awayTeam.name
+            itemView.titleHome.text= data?.homeTeam?.name
+            itemView.titleAway.text= data?.awayTeam?.name
 
             itemView.scoreHome.text=""
             itemView.scoreAway.text=""
-            if(data.homeScore !=null ){
+            if(data?.homeScore !=null ){
                 itemView.scoreHome.text=data.homeScore.toString()
                 itemView.scoreAway.text=data.awayScore.toString()
             }
 
             Glide.with(itemView.context)
-                    .load(data.homeTeam.logo)
+                    .load(data?.homeTeam?.logo)
                     .apply(Global.glideRequestOptions())
                     .into(itemView.imgHome)
             Glide.with(itemView.context)
-                    .load(data.awayTeam.logo)
+                    .load(data?.awayTeam?.logo)
                     .apply(Global.glideRequestOptions())
                     .into(itemView.imgAway)
 
             itemView.card.setOnClickListener{
-                itemView.context.startActivity<MatchDetailActivity>("extra" to data)
+                if(data?.homeTeam!=null && data.awayTeam!=null) {
+                    itemView.context.startActivity<MatchDetailActivity>("extra" to data)
+                }
             }
         }
     }

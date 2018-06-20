@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.nnn.footballclub.R
 import com.nnn.footballclub.pages.main.match.MatchListFragment
 import com.nnn.footballclub.pages.main.team.TeamListFragment
+import kotlinx.android.synthetic.main.fragment_favorite.view.*
 
 
 /**
