@@ -45,7 +45,7 @@ class TeamFragment : Fragment(),
         updateFragment()
     }
 
-    fun updateFragment() {
+    private fun updateFragment() {
         val ft = childFragmentManager.beginTransaction()
         ft.replace(R.id.frame, TeamListFragment.create(getLeagueId()))
         ft.commit()

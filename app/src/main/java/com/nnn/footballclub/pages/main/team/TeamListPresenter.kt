@@ -83,7 +83,7 @@ open class TeamListPresenter(
         }
     }
 
-    fun loadTeam(response: TeamResponse) {
+    private fun loadTeam(response: TeamResponse) {
 
         data.clear()
 
@@ -99,7 +99,7 @@ open class TeamListPresenter(
         adapter.notifyDataSetChanged()
     }
 
-    fun loadFavorite() {
+    private fun loadFavorite() {
 
         val list = favoriteTeamDB.getAll()
 

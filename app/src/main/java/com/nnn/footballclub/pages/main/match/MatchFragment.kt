@@ -61,7 +61,7 @@ class MatchFragment : Fragment(),
         // not implemented
     }
 
-    fun updateFragment() {
+    private fun updateFragment() {
         val ft = childFragmentManager.beginTransaction()
         ft.replace(R.id.frame, MatchListFragment.create(getType(),getLeagueId()))
         ft.commit()

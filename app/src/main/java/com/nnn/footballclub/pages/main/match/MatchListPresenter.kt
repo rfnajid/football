@@ -62,7 +62,7 @@ open class MatchListPresenter(
         Global.log("Team : "+data.get(i))
     }
 
-    fun checkLoadEvent(i : Int){
+    private fun checkLoadEvent(i : Int){
         Global.log("checkLoadEvent -> i : ${i}")
         if(i>=data.size-1){
             Global.log("GET TEAM DETAIL ALL COMPLETED : size -> ${data.size}")

@@ -49,14 +49,14 @@ class MainActivityTest {
     }
 
     @Test
-    fun fullBehaviorTest(){
+    private fun fullBehaviorTest(){
         testTeam()
         testMatch()
         testFavorite()
         testSearch()
     }
 
-    fun testMatch(){
+    private fun testMatch(){
         onView(withId(navigation_match)).perform(click())
         onView(withId(spinner))
                 .check(matches(isDisplayed()))
@@ -76,7 +76,7 @@ class MainActivityTest {
         Espresso.pressBack()
     }
 
-    fun testTeam(){
+    private fun testTeam(){
         onView(withId(navigation_team)).perform(click())
 
         onView(withId(recycler)).check(matches(isDisplayed()))
@@ -114,13 +114,13 @@ class MainActivityTest {
 
     }
 
-    fun testFavorite(){
+    private fun testFavorite(){
         onView(withId(navigation_favorite)).perform(click())
         testFavoriteTeam()
         testFavoriteMatch()
     }
 
-    fun testFavoriteMatch(){
+    private fun testFavoriteMatch(){
 
         val tabMatch = allOf(withText(activity.getString(R.string.tab_match)),
                 isDescendantOfA(withId(tabLayout)))
@@ -152,7 +152,7 @@ class MainActivityTest {
                 .check(RecyclerViewItemCountAssertion(lastPos))
     }
 
-    fun testFavoriteTeam(){
+    private fun testFavoriteTeam(){
 
         val tabTeam = allOf(withText(activity.getString(R.string.tab_team)),
                 isDescendantOfA(withId(tabLayout)))
@@ -181,12 +181,12 @@ class MainActivityTest {
 
     }
 
-    fun testSearch(){
+    private fun testSearch(){
         testSearchMatch()
         testSearchTeam()
     }
 
-    fun testSearchMatch(){
+    private fun testSearchMatch(){
         onView(withId(navigation_match)).perform(click())
 
         onView(withId(menu_search))
@@ -212,7 +212,7 @@ class MainActivityTest {
         Espresso.pressBack()
     }
 
-    fun testSearchTeam(){
+    private fun testSearchTeam(){
         onView(withId(navigation_team)).perform(click())
 
         onView(withId(menu_search))

@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import com.nnn.footballclub.R
 import com.nnn.footballclub.pages.main.match.MatchListFragment
 import com.nnn.footballclub.pages.main.team.TeamListFragment
-import kotlinx.android.synthetic.main.fragment_match.view.*
 
 
 /**
@@ -51,7 +50,7 @@ class FavoriteFragment : Fragment(),
     }
 
 
-    fun updateFragment() {
+    private fun updateFragment() {
         lateinit var fragment : Fragment
         when(tabLayout.selectedTabPosition){
             0 -> {

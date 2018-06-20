@@ -34,6 +34,7 @@ https://nofile.io/f/GC51cuQFdmC/Screenshot_1528909330.png
 
 ## Thanks
 
+- [The Sports DB API](https://www.thesportsdb.com/)
 - [Dicoding Team](https://www.dicoding.com/)
 
 ## Disclaimer

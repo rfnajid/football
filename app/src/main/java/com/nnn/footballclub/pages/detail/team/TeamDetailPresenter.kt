@@ -32,7 +32,7 @@ class TeamDetailPresenter (
         start(context,FavoriteTeamDB(context))
     }
 
-    fun start(context: Context, favoriteTeamDB: FavoriteTeamDB){
+    internal fun start(context: Context, favoriteTeamDB: FavoriteTeamDB){
         this.favoriteDB=favoriteTeamDB
         isFavorite = favoriteDB.isExist(team)
         view.updateFavoriteLayout(isFavorite)
