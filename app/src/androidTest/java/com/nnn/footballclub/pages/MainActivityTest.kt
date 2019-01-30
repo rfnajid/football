@@ -130,11 +130,12 @@ class MainActivityTest {
                 .perform(scrollTo())
                 .perform(click())
 
-        val presenter = (activity.supportFragmentManager.findFragmentById(frame)
-                .childFragmentManager.findFragmentById(frame) as MatchListFragment)
-                .listPresenter
+        val view = (activity.supportFragmentManager.findFragmentById(frame)
+                ?.childFragmentManager?.findFragmentById(frame) as MatchListFragment)
 
-        val lastPos = presenter.adapter.itemCount-1
+        val presenter = view.listPresenter
+
+        val lastPos = view.adapter.itemCount-1
 
         onView(withId(recycler))
                 .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>

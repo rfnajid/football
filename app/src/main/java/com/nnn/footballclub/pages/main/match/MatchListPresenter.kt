@@ -9,9 +9,8 @@ import com.nnn.footballclub.pages.main.MainContract
 import com.nnn.footballclub.utils.Global
 import com.nnn.footballclub.utils.network.SportsDBApiAnko
 import com.nnn.footballclub.utils.provider.CoroutineContextProvider
-import kotlinx.coroutines.experimental.async
-import org.jetbrains.anko.coroutines.experimental.bg
-
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  * Created by ridhaaaaazis on 21/05/18.
@@ -19,14 +18,12 @@ import org.jetbrains.anko.coroutines.experimental.bg
 
 open class MatchListPresenter(
         val view : MainContract._MatchListView,
-        override var coroutineContext: CoroutineContextProvider = CoroutineContextProvider()
+        var coroutineContext: CoroutineContextProvider = CoroutineContextProvider()
 ) : MainContract._MatchListPresenter() {
 
     enum class TYPE {
         PAST,NEXT,FAVORITE,SEARCH
     }
-
-    override lateinit var adapter: MatchItemAdapter
 
     internal lateinit var favoriteEventDB: FavoriteEventDB
 
@@ -37,36 +34,35 @@ open class MatchListPresenter(
     lateinit var query : String
 
     override fun start(context : Context) {
-        adapter = MatchItemAdapter(context, data)
         favoriteEventDB = FavoriteEventDB(context)
     }
 
     override fun onResume() {
         if(type== TYPE.FAVORITE) {
             var list = favoriteEventDB.getAll()
-            if(list.size!=data.size)
+            if(list.size!=view.data.size)
                 loadFavorite()
         }
     }
 
     override fun loadTeam(response: TeamResponse, i : Int, isHome: Boolean) {
         val team = response.teams[0]
-        val d = data.get(i)
+        val d = view.data.get(i)
 
         if(isHome){
             d.homeTeam=team
         }else {
             d.awayTeam = team
         }
-        data.set(i,d)
-        Global.log("Team : "+data.get(i))
+        view.data.set(i,d)
+        Global.log("Team : ${view.data.get(i)}")
     }
 
     private fun checkLoadEvent(i : Int){
         Global.log("checkLoadEvent -> i : ${i}")
-        if(i>=data.size-1){
-            Global.log("GET TEAM DETAIL ALL COMPLETED : size -> ${data.size}")
-            adapter.notifyDataSetChanged()
+        if(i>=view.data.size-1){
+            Global.log("GET TEAM DETAIL ALL COMPLETED : size -> ${view.data.size}")
+            view.adapter.notifyDataSetChanged()
             view.loading(false)
         }
     }
@@ -93,17 +89,12 @@ open class MatchListPresenter(
             }
         }
 
-        async(coroutineContext.main) {
-            val data = bg {
-                Global.gson.fromJson(SportsDBApiAnko
-                        .doRequest(req),
-                        EventResponse::class.java
-                )
-            }
+        GlobalScope.launch(coroutineContext.main){
+                val data = Global.gson.fromJson(SportsDBApiAnko
+                        .doRequest(req).await(),
+                        EventResponse::class.java)
 
-            data.await()
-            loadEvent(data.getCompleted())
-
+                loadEvent(data)
         }
     }
 
@@ -118,15 +109,15 @@ open class MatchListPresenter(
             return
         }
 
-        data.clear()
+        view.data.clear()
 
         for ( f in list){
-            data.add(Event.copy(f))
+            view.data.add(Event.copy(f))
         }
 
         view.loading(false)
 
-        adapter.notifyDataSetChanged()
+        view.adapter.notifyDataSetChanged()
     }
 
     override fun loadEvent(response: EventResponse) {
@@ -134,43 +125,31 @@ open class MatchListPresenter(
 
         if(Global.nullOrEmpty(response.events)) {
             view.empty()
-            adapter.notifyDataSetChanged()
+            view.adapter.notifyDataSetChanged()
             return
         }
 
-        data.addAll(response.events)
+        view.data.addAll(response.events)
 
-        for(i in 0..(data.size-1)){
-            val d = data.get(i)
+        for(i in 0..(view.data.size-1)){
+            val d = view.data.get(i)
             Global.log("EVENT : ${d.name}")
 
-            async(coroutineContext.main){
-                val data = bg {
-                    Global.gson.fromJson(SportsDBApiAnko
-                            .doRequest(SportsDBApiAnko.getTeam(d.homeId)),
-                            TeamResponse::class.java
-                    )
-                }
+            GlobalScope.launch (coroutineContext.main){
+                val data = Global.gson.fromJson(SportsDBApiAnko
+                        .doRequest(SportsDBApiAnko.getTeam(d.homeId)).await(),
+                        TeamResponse::class.java)
 
-                data.await()
-
-                loadTeam(data.getCompleted(),i,true)
+                loadTeam(data, i, true)
 
 
-                async(coroutineContext) {
-                    val data = bg {
-                        Global.gson.fromJson(SportsDBApiAnko
-                                .doRequest(SportsDBApiAnko.getTeam(d.awayId)),
-                                TeamResponse::class.java
-                        )
-                    }
-
-                    data.await()
-
-                    loadTeam(data.getCompleted(), i, false)
+                launch(coroutineContext) {
+                    val data = Global.gson.fromJson(SportsDBApiAnko
+                            .doRequest(SportsDBApiAnko.getTeam(d.awayId)).await(),
+                            TeamResponse::class.java)
+                    loadTeam(data, i, false)
                     checkLoadEvent(i)
                 }
-
             }
         }
     }

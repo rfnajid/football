@@ -2,6 +2,9 @@ package com.nnn.footballclub.utils.network
 
 import com.nnn.footballclub.BuildConfig
 import com.nnn.footballclub.utils.Global
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import java.net.URL
 
 /**
@@ -52,7 +55,11 @@ object SportsDBApiAnko{
         return url
     }
 
-    fun doRequest(url: String): String {
+    fun doRequest(url: String): Deferred<String> = GlobalScope.async {
+        URL(url).readText()
+    }
+
+    fun doRequestString(url: String): String {
         return URL(url).readText()
     }
 }

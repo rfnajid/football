@@ -8,9 +8,9 @@ import com.nnn.footballclub.model.responses.TeamResponse
 import com.nnn.footballclub.utils.Global
 import com.nnn.footballclub.utils.base.BaseDetailContract
 import com.nnn.footballclub.utils.network.SportsDBApiAnko
-import com.nnn.footballclub.utils.provider.CoroutineContextProvider
-import kotlinx.coroutines.experimental.async
-import org.jetbrains.anko.coroutines.experimental.bg
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 /**
@@ -19,8 +19,7 @@ import org.jetbrains.anko.coroutines.experimental.bg
 
 class TeamDetailPresenter (
         private var team : Team,
-        private val view : BaseDetailContract._View<Team>,
-        val coroutineContext : CoroutineContextProvider = CoroutineContextProvider()
+        private val view : BaseDetailContract._View<Team>
 ) : BaseDetailContract._Presenter {
 
     private lateinit var context : Context
@@ -41,14 +40,12 @@ class TeamDetailPresenter (
 
         if(team.isACopyOfFavTeam()){
 
-            async(coroutineContext.main) {
-                val data = bg {
-                    Global.gson.fromJson(SportsDBApiAnko
-                            .doRequest(SportsDBApiAnko.getTeam(team.id)),
-                            TeamResponse::class.java
-                    )
-                }
-                team = data.await().teams.get(0)
+            GlobalScope.launch(Dispatchers.Main) {
+                val data = Global.gson.fromJson(SportsDBApiAnko
+                        .doRequest(SportsDBApiAnko.getTeam(team.id)).await(),
+                        TeamResponse::class.java)
+
+                team = data.teams.get(0)
                 Global.log(team.toString())
 
                 view.loadData(team)

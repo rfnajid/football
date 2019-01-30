@@ -22,7 +22,7 @@ class MainPresenter(val view : MainContract._MainView) : MainContract._MainPrese
     override lateinit var type : TYPE
 
     override fun start(context:Context) {
-        loadFragment(R.id.navigation_match)
+        loadFragment(R.id.navigation_team)
     }
 
     override fun loadFragment(id: Int) {

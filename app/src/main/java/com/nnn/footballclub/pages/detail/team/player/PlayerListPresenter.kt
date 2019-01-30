@@ -7,8 +7,8 @@ import com.nnn.footballclub.pages.detail.team.TeamDetailContract
 import com.nnn.footballclub.utils.Global
 import com.nnn.footballclub.utils.network.SportsDBApiAnko
 import com.nnn.footballclub.utils.provider.CoroutineContextProvider
-import kotlinx.coroutines.experimental.async
-import org.jetbrains.anko.coroutines.experimental.bg
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 /**
@@ -17,18 +17,14 @@ import org.jetbrains.anko.coroutines.experimental.bg
 
 open class PlayerListPresenter(
         val view : TeamDetailContract._PlayerView,
-        override var coroutineContext: CoroutineContextProvider = CoroutineContextProvider()
+        var coroutineContext: CoroutineContextProvider = CoroutineContextProvider()
 ) : TeamDetailContract._PlayerPresenter() {
-
-    override lateinit var adapter: PlayerItemAdapter
 
     internal lateinit var context : Context
 
     override lateinit var team : Team
 
-    override fun start(context : Context) {
-        adapter = PlayerItemAdapter(context,data)
-    }
+    override fun start(context : Context) {}
 
     override fun onResume() {
         //Nothing
@@ -40,23 +36,19 @@ open class PlayerListPresenter(
 
         lateinit var req: String
 
-        data.clear()
+        view.data.clear()
 
         req = SportsDBApiAnko.getPlayers(team.id)
 
-        async(coroutineContext.main) {
-            val data = bg {
-                Global.gson.fromJson(SportsDBApiAnko
-                        .doRequest(req),
-                        PlayerResponse::class.java
-                )
-            }
+        GlobalScope.launch(coroutineContext.main) {
+            val data = Global.gson.fromJson(SportsDBApiAnko
+                    .doRequest(req).await(),
+                    PlayerResponse::class.java
+            )
 
             Global.log("ASYNC PLAYER LIST")
 
-            data.await()
-            Global.log("done await")
-            loadToView(data.getCompleted())
+            loadToView(data)
         }
     }
 
@@ -69,9 +61,9 @@ open class PlayerListPresenter(
             Global.log("player null")
         }else {
             view.loading(false)
-            data.addAll(response.players)
-            Global.log("player not null : ${data.size}")
+            view.data.addAll(response.players)
+            Global.log("player not null : ${view.data.size}")
         }
-        adapter.notifyDataSetChanged()
+        view.adapter.notifyDataSetChanged()
     }
 }

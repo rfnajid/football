@@ -19,8 +19,6 @@ import java.util.*
 
 object Global {
 
-    const val idLeague : Long = 4328
-
     val gson : Gson
         get () = GsonBuilder()
                 .setDateFormat("yyyy-MM-dd")

@@ -31,7 +31,7 @@ interface MainContract{
 
     abstract class _MatchListView : BaseListFragment<Event,MatchItemAdapter>()
 
-    abstract class _MatchListPresenter : BaseListPresenter<Event, MatchItemAdapter>(){
+    abstract class _MatchListPresenter : BaseListPresenter{
         abstract fun loadFavorite()
         abstract fun loadEvent(response : EventResponse)
         abstract fun loadTeam(response: TeamResponse, index: Int, isHome : Boolean)
@@ -39,7 +39,7 @@ interface MainContract{
 
     abstract class _TeamListView : BaseListFragment<Team,TeamItemAdapter>()
 
-    abstract class _TeamListPresenter : BaseListPresenter<Team, TeamItemAdapter>()
+    abstract class _TeamListPresenter : BaseListPresenter
 
 
 }

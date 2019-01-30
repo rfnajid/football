@@ -8,8 +8,8 @@ import com.nnn.footballclub.pages.main.MainContract
 import com.nnn.footballclub.utils.Global
 import com.nnn.footballclub.utils.network.SportsDBApiAnko
 import com.nnn.footballclub.utils.provider.CoroutineContextProvider
-import kotlinx.coroutines.experimental.async
-import org.jetbrains.anko.coroutines.experimental.bg
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 /**
@@ -18,12 +18,10 @@ import org.jetbrains.anko.coroutines.experimental.bg
 
 open class TeamListPresenter(
         private val view : MainContract._TeamListView,
-        override var coroutineContext : CoroutineContextProvider = CoroutineContextProvider()
-) : MainContract._TeamListPresenter(){
+        var coroutineContext: CoroutineContextProvider = CoroutineContextProvider()
+) : MainContract._TeamListPresenter() {
 
     enum class TYPE {NORMAL,FAVORITE,SEARCH}
-
-    override lateinit var adapter: TeamItemAdapter
 
     internal lateinit var favoriteTeamDB : FavoriteTeamDB
 
@@ -32,18 +30,17 @@ open class TeamListPresenter(
     lateinit var query : String
     
     override fun start(context: Context) {
-        start(TeamItemAdapter(context,data),FavoriteTeamDB(context))
+        start(FavoriteTeamDB(context))
     }
 
-    fun start(adapter: TeamItemAdapter,favoriteTeamDB: FavoriteTeamDB){ //for testing purpose
-        this.adapter=adapter
+    fun start(favoriteTeamDB: FavoriteTeamDB){ //for testing purpose
         this.favoriteTeamDB=favoriteTeamDB
     }
 
     override fun onResume() {
         if(type== TYPE.FAVORITE) {
             var list = favoriteTeamDB.getAll()
-            if(list.size!=data.size)
+            if(list.size!=view.data.size)
                 loadFavorite()
         }
     }
@@ -69,34 +66,39 @@ open class TeamListPresenter(
             }
         }
 
+        Global.log("type : ${type}, req : ${req}");
 
-        async(coroutineContext.main) {
-            val data = bg {
-                Global.gson.fromJson(SportsDBApiAnko
-                        .doRequest(req),
+        GlobalScope.launch(coroutineContext.main){
+
+                Global.log("seharusnya launch");
+
+                val data = Global.gson.fromJson(SportsDBApiAnko
+                        .doRequest(req).await(),
                         TeamResponse::class.java
                 )
-            }
 
-            data.await()
-            loadTeam(data.getCompleted())
+                loadTeam(data)
         }
     }
 
     private fun loadTeam(response: TeamResponse) {
 
-        data.clear()
+        view.data.clear();
+        view.loading(false)
+
+        Global.log("r size : " + response.teams.size)
 
         if(Global.nullOrEmpty(response.teams)){
             Global.log("load team : empty ")
             view.empty()
         }else{
             Global.log("load team : not empty ")
-            data.addAll(response.teams)
-            view.loading(false)
+            view.data.addAll(response.teams)
+
+            Global.log("data new size : ${view.data.size}")
         }
 
-        adapter.notifyDataSetChanged()
+        //view.adapter.notifyDataSetChanged()
     }
 
     private fun loadFavorite() {
@@ -110,15 +112,15 @@ open class TeamListPresenter(
             return
         }
 
-        data.clear()
+        view.data.clear()
 
         for ( f in list){
-            data.add(Team.copy(f))
+            view.data.add(Team.copy(f))
         }
 
         view.loading(false)
 
-        adapter.notifyDataSetChanged()
+        view.adapter.notifyDataSetChanged()
     }
 
 }

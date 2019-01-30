@@ -11,11 +11,12 @@ import com.nnn.footballclub.pages.detail.team.TeamDetailContract
 import com.nnn.footballclub.pages.detail.team.player.PlayerItemAdapter
 import com.nnn.footballclub.pages.detail.team.player.PlayerListPresenter
 import com.nnn.footballclub.utils.network.SportsDBApiAnko
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 
 
@@ -46,7 +47,7 @@ class PlayerListPresenterTest{
     private lateinit var team : Team
 
     @Mock
-    private val context : Context = MockContext()
+    private val context : Context = mock(Context::class.java)
 
     private var mockLong : Long = 15
 
@@ -56,7 +57,7 @@ class PlayerListPresenterTest{
         presenter = PlayerListPresenter(view, TestContextProvider())
 
         presenter.start(context)
-        presenter.adapter = adapter
+        view.adapter = adapter
         presenter.team = team
     }
 
@@ -64,7 +65,18 @@ class PlayerListPresenterTest{
     @Test
     fun testLoadNormal(){
 
-        `when`(gson.fromJson(SportsDBApiAnko
+        `when`(
+                GlobalScope.launch(coroutineContext.main) {
+            val data = Global.gson.fromJson(SportsDBApiAnko
+                    .doRequest(req).await(),
+                    PlayerResponse::class.java
+            )
+
+            Global.log("ASYNC PLAYER LIST")
+
+            loadToView(data)
+        }
+                gson.fromJson(SportsDBApiAnko
                 .doRequest(SportsDBApiAnko.getPlayers(mockLong)),
                 PlayerResponse::class.java
         )).thenReturn(response)
@@ -99,3 +111,5 @@ class PlayerListPresenterTest{
 
 
 }
+
+// TODO test still not working for new coroutine system

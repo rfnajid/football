@@ -1,5 +1,9 @@
 package com.nnn.footballclub.pages.detail.team.player
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.nnn.footballclub.model.Team
 import com.nnn.footballclub.pages.detail.team.TeamDetailContract
 
@@ -9,6 +13,13 @@ import com.nnn.footballclub.pages.detail.team.TeamDetailContract
  */
 
 class PlayerFragment : TeamDetailContract._PlayerView(){
+
+    override lateinit var adapter: PlayerItemAdapter
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        adapter = PlayerItemAdapter(context!!,data)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     companion object {
         fun create(team : Team) : PlayerFragment {

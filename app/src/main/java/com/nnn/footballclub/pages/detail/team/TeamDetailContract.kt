@@ -17,7 +17,7 @@ interface TeamDetailContract : BaseDetailContract{
 
     abstract class _PlayerView : BaseListFragment<Player,PlayerItemAdapter>()
 
-    abstract class _PlayerPresenter : BaseListPresenter<Player, PlayerItemAdapter>(){
+    abstract class _PlayerPresenter : BaseListPresenter {
         abstract var team : Team
     }
 }

@@ -1,7 +1,6 @@
 package com.nnn.footballclub.pages.main
 
 import android.content.Context
-import android.test.mock.MockContext
 import com.google.gson.Gson
 import com.nnn.footballclub.TestContextProvider
 import com.nnn.footballclub.model.Event
@@ -11,6 +10,7 @@ import com.nnn.footballclub.model.responses.EventResponse
 import com.nnn.footballclub.model.responses.TeamResponse
 import com.nnn.footballclub.pages.main.match.MatchItemAdapter
 import com.nnn.footballclub.pages.main.match.MatchListPresenter
+import com.nnn.footballclub.utils.Global.gson
 import com.nnn.footballclub.utils.network.SportsDBApiAnko
 import org.junit.Before
 import org.junit.Test
@@ -35,7 +35,7 @@ class MatchListPresenterTest{
     private lateinit var favoriteDB: FavoriteEventDB
 
     @Mock
-    private val context: Context = MockContext()
+    private val context: Context = mock(Context::class.java)
 
     @Mock
     private lateinit var gson : Gson
@@ -68,7 +68,7 @@ class MatchListPresenterTest{
 
         presenter.start(context)
         presenter.favoriteEventDB=favoriteDB
-        presenter.adapter = adapter
+        view.adapter = adapter
     }
 
 
@@ -78,7 +78,7 @@ class MatchListPresenterTest{
         presenter.type = MatchListPresenter.TYPE.PAST
 
         `when`(gson.fromJson(SportsDBApiAnko
-                .doRequest(SportsDBApiAnko.getPast(leagueId)),
+                .doRequest(SportsDBApiAnko.getPast(leagueId))),
                 EventResponse::class.java
         )).thenReturn(eventResponse)
 

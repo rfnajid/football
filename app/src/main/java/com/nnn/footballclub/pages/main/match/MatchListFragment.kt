@@ -1,4 +1,8 @@
 package com.nnn.footballclub.pages.main.match
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.nnn.footballclub.pages.main.MainContract
 import com.nnn.footballclub.pages.main.match.MatchListPresenter.TYPE
 
@@ -7,6 +11,13 @@ import com.nnn.footballclub.pages.main.match.MatchListPresenter.TYPE
  */
 
 class MatchListFragment : MainContract._MatchListView() {
+
+    override lateinit var adapter: MatchItemAdapter
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        this.adapter = MatchItemAdapter(context!!,data)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     companion object {
         fun create(type : TYPE, idLeague : Int) : MatchListFragment {
