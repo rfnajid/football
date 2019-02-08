@@ -81,12 +81,10 @@ open class TeamListPresenter(
         }
     }
 
-    private fun loadTeam(response: TeamResponse) {
+     fun loadTeam(response: TeamResponse) {
 
         view.data.clear();
         view.loading(false)
-
-        Global.log("r size : " + response.teams.size)
 
         if(Global.nullOrEmpty(response.teams)){
             Global.log("load team : empty ")
@@ -98,27 +96,27 @@ open class TeamListPresenter(
             Global.log("data new size : ${view.data.size}")
         }
 
-        //view.adapter.notifyDataSetChanged()
+        view.adapter.notifyDataSetChanged()
     }
 
-    private fun loadFavorite() {
+    fun loadFavorite() {
 
         val list = favoriteTeamDB.getAll()
 
         Global.log("Fav Team From DB (${list.size}), empty ? ${list.isEmpty()}")
 
-        if(list.isEmpty()) {
-            view.empty()
-            return
-        }
-
         view.data.clear()
 
-        for ( f in list){
-            view.data.add(Team.copy(f))
-        }
+        if(list.isEmpty()) {
+            view.empty()
+        }else {
 
-        view.loading(false)
+            for (f in list) {
+                view.data.add(Team.copy(f))
+            }
+
+            view.loading(false)
+        }
 
         view.adapter.notifyDataSetChanged()
     }

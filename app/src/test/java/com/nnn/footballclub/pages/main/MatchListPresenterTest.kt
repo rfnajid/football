@@ -10,8 +10,8 @@ import com.nnn.footballclub.model.responses.EventResponse
 import com.nnn.footballclub.model.responses.TeamResponse
 import com.nnn.footballclub.pages.main.match.MatchItemAdapter
 import com.nnn.footballclub.pages.main.match.MatchListPresenter
-import com.nnn.footballclub.utils.Global.gson
 import com.nnn.footballclub.utils.network.SportsDBApiAnko
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers
@@ -68,19 +68,21 @@ class MatchListPresenterTest{
 
         presenter.start(context)
         presenter.favoriteEventDB=favoriteDB
-        view.adapter = adapter
     }
 
 
     @Test
-    fun testLoadData(){
+    fun testLoadData() = runBlocking<Unit>{
 
         presenter.type = MatchListPresenter.TYPE.PAST
 
-        `when`(gson.fromJson(SportsDBApiAnko
-                .doRequest(SportsDBApiAnko.getPast(leagueId))),
-                EventResponse::class.java
-        )).thenReturn(eventResponse)
+        `when`(
+                gson.fromJson(SportsDBApiAnko
+                .doRequest(SportsDBApiAnko.getPast(leagueId)).await(),
+                EventResponse::class.java)
+        ).thenReturn(eventResponse)
+
+        `when`(view.adapter).thenReturn(adapter)
 
         presenter.loadData()
 
@@ -89,13 +91,13 @@ class MatchListPresenterTest{
     }
 
     @Test
-    fun testLoadSearch(){
+    fun testLoadSearch() = runBlocking<Unit>{
 
         presenter.type=MatchListPresenter.TYPE.SEARCH
         presenter.query= searchQuery
 
         `when`(gson.fromJson(SportsDBApiAnko
-                .doRequest(SportsDBApiAnko.searchMatch(searchQuery)),
+                .doRequest(SportsDBApiAnko.searchMatch(searchQuery)).await(),
                 EventResponse::class.java
         )).thenReturn(eventResponse)
 
@@ -118,6 +120,8 @@ class MatchListPresenterTest{
 
         `when` (listFav.iterator()).thenReturn(iterator as Iterator<FavEvent>)
 
+        `when` (view.adapter).thenReturn(adapter)
+
         presenter.loadFavorite()
 
         verify(view).loading(false)
@@ -139,7 +143,7 @@ class MatchListPresenterTest{
     }
 
     @Test
-    fun testLoadMatchSuccess(){
+    fun testLoadMatchSuccess() = runBlocking {
 
         var mockEvent : Event = mock(Event::class.java)
 
@@ -150,10 +154,11 @@ class MatchListPresenterTest{
         `when` (mockEvent.name).thenReturn(ArgumentMatchers.anyString())
 
         `when`(gson.fromJson(SportsDBApiAnko
-                .doRequest(SportsDBApiAnko.getTeam(ArgumentMatchers.anyLong())),
+                .doRequest(SportsDBApiAnko.getTeam(ArgumentMatchers.anyLong())).await(),
                 TeamResponse::class.java
         )).thenReturn(teamResponse)
 
+        `when` (view.adapter).thenReturn(adapter)
 
         presenter.loadEvent(eventResponse)
 
@@ -163,6 +168,8 @@ class MatchListPresenterTest{
     fun testLoadMatchEmpty(){
 
         `when` (eventResponse.events).thenReturn(null)
+
+        `when` (view.adapter).thenReturn(adapter)
 
         presenter.loadEvent(eventResponse)
 

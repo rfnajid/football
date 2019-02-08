@@ -1,7 +1,6 @@
 package com.nnn.footballclub.pages.detail
 
 import android.content.Context
-import android.test.mock.MockContext
 import com.google.gson.Gson
 import com.nnn.footballclub.TestContextProvider
 import com.nnn.footballclub.model.Team
@@ -10,11 +9,13 @@ import com.nnn.footballclub.model.responses.TeamResponse
 import com.nnn.footballclub.pages.detail.team.TeamDetailPresenter
 import com.nnn.footballclub.utils.base.BaseDetailContract
 import com.nnn.footballclub.utils.network.SportsDBApiAnko
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.setMain
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 
 
@@ -27,7 +28,7 @@ class TeamDetailPresenterTest{
     private lateinit var presenterTeam : TeamDetailPresenter
 
     @Mock
-    private val context : Context = MockContext()
+    private val context : Context = mock(Context::class.java)
 
     @Mock
     private lateinit var team : Team
@@ -53,7 +54,7 @@ class TeamDetailPresenterTest{
     }
 
     @Test
-    fun testFavorite(){
+    fun testFavorite() = runBlocking<Unit>{
         //load Favorite
 
         `when`(favoriteTeamDB.isExist(team)).thenReturn(true)
@@ -61,14 +62,11 @@ class TeamDetailPresenterTest{
         `when`(team.isACopyOfFavTeam()).thenReturn(true)
 
         `when`(gson.fromJson(SportsDBApiAnko
-                .doRequest(SportsDBApiAnko.getTeam(teamId)),
+                .doRequest(SportsDBApiAnko.getTeam(teamId)).await(),
                 TeamResponse::class.java
         )).thenReturn(teamResponse)
 
-        `when`(gson.fromJson(SportsDBApiAnko
-                .doRequest(SportsDBApiAnko.getTeam(teamId)),
-                TeamResponse::class.java
-        )).thenReturn(teamResponse)
+        Dispatchers.setMain(Dispatchers.Unconfined)
 
         presenterTeam.start(context,favoriteTeamDB)
 

@@ -49,7 +49,7 @@ class MainActivityTest {
     }
 
     @Test
-    private fun fullBehaviorTest(){
+    fun fullBehaviorTest(){
         testTeam()
         testMatch()
         testFavorite()
@@ -145,7 +145,7 @@ class MainActivityTest {
 
         pressFavorite()
 
-        sleepFlash()
+        sleepFast()
 
         Espresso.pressBack()
 

@@ -69,7 +69,6 @@ class MainActivity : AppCompatActivity(), MainContract._MainView,
     }
 
 
-
     private fun prepareView(){
 
         setContentView(activity_main)

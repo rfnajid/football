@@ -8,6 +8,7 @@ import com.nnn.footballclub.model.responses.TeamResponse
 import com.nnn.footballclub.utils.Global
 import com.nnn.footballclub.utils.base.BaseDetailContract
 import com.nnn.footballclub.utils.network.SportsDBApiAnko
+import com.nnn.footballclub.utils.provider.CoroutineContextProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -19,7 +20,8 @@ import kotlinx.coroutines.launch
 
 class TeamDetailPresenter (
         private var team : Team,
-        private val view : BaseDetailContract._View<Team>
+        private val view : BaseDetailContract._View<Team>,
+        var coroutineContext: CoroutineContextProvider = CoroutineContextProvider()
 ) : BaseDetailContract._Presenter {
 
     private lateinit var context : Context

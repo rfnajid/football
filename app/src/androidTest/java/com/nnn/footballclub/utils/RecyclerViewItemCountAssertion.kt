@@ -33,7 +33,7 @@ class RecyclerViewItemCountAssertion : ViewAssertion {
 
         val recyclerView = view as RecyclerView
         val adapter = recyclerView.adapter
-        assertThat(adapter.itemCount, matcher)
+        assertThat(adapter!!.itemCount, matcher)
     }
 
 }

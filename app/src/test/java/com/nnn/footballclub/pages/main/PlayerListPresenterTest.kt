@@ -1,7 +1,6 @@
 package com.nnn.footballclub.pages.main
 
 import android.content.Context
-import android.test.mock.MockContext
 import com.google.gson.Gson
 import com.nnn.footballclub.TestContextProvider
 import com.nnn.footballclub.model.Player
@@ -11,8 +10,7 @@ import com.nnn.footballclub.pages.detail.team.TeamDetailContract
 import com.nnn.footballclub.pages.detail.team.player.PlayerItemAdapter
 import com.nnn.footballclub.pages.detail.team.player.PlayerListPresenter
 import com.nnn.footballclub.utils.network.SportsDBApiAnko
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -63,23 +61,13 @@ class PlayerListPresenterTest{
 
 
     @Test
-    fun testLoadNormal(){
+    fun testLoadNormal() = runBlocking <Unit> {
 
         `when`(
-                GlobalScope.launch(coroutineContext.main) {
-            val data = Global.gson.fromJson(SportsDBApiAnko
-                    .doRequest(req).await(),
-                    PlayerResponse::class.java
-            )
-
-            Global.log("ASYNC PLAYER LIST")
-
-            loadToView(data)
-        }
-                gson.fromJson(SportsDBApiAnko
-                .doRequest(SportsDBApiAnko.getPlayers(mockLong)),
-                PlayerResponse::class.java
-        )).thenReturn(response)
+            gson.fromJson(SportsDBApiAnko
+            .doRequest(SportsDBApiAnko.getPlayers(mockLong)).await(),
+            PlayerResponse::class.java)
+        ).thenReturn(response)
 
         presenter.loadData()
 
@@ -92,6 +80,7 @@ class PlayerListPresenterTest{
 
         `when` (response.players).thenReturn(list, mutableListOf())
         `when` (list.isEmpty()).thenReturn(false)
+        `when` (view.adapter).thenReturn(adapter)
 
         presenter.loadToView(response)
 
@@ -103,6 +92,8 @@ class PlayerListPresenterTest{
 
 
         `when` (response.players).thenReturn(null)
+
+        `when` (view.adapter).thenReturn(adapter)
 
         presenter.loadToView(response)
 

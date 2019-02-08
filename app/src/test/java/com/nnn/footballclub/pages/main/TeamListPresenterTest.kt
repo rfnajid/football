@@ -9,6 +9,7 @@ import com.nnn.footballclub.model.responses.TeamResponse
 import com.nnn.footballclub.pages.main.team.TeamItemAdapter
 import com.nnn.footballclub.pages.main.team.TeamListPresenter
 import com.nnn.footballclub.utils.network.SportsDBApiAnko
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -37,7 +38,7 @@ class TeamListPresenterTest{
     private lateinit var response : TeamResponse
 
     @Mock
-    private lateinit var list : List<Team>
+    private lateinit var list : MutableList<Team>
 
     @Mock
     private lateinit var listFav : List<FavTeam>
@@ -59,16 +60,18 @@ class TeamListPresenterTest{
 
 
     @Test
-    fun testLoadNormal(){
+    fun testLoadNormal() = runBlocking<Unit>{
 
-        presenter.start(adapter,favoriteTeamDB)
+        presenter.start(favoriteTeamDB)
 
         presenter.type = TeamListPresenter.TYPE.NORMAL
 
         `when`(gson.fromJson(SportsDBApiAnko
-                .doRequest(SportsDBApiAnko.getTeam(leagueId)),
+                .doRequest(SportsDBApiAnko.getTeam(leagueId)).await(),
                 TeamResponse::class.java
         )).thenReturn(response)
+
+        `when`(view.adapter).thenReturn(adapter)
 
         presenter.loadData()
 
@@ -77,17 +80,19 @@ class TeamListPresenterTest{
     }
 
     @Test
-    fun testLoadSearch(){
+    fun testLoadSearch() = runBlocking<Unit>{
 
-        presenter.start(adapter,favoriteTeamDB)
+        presenter.start(favoriteTeamDB)
 
         presenter.type=TeamListPresenter.TYPE.SEARCH
         presenter.query= searchQuery
 
         `when`(gson.fromJson(SportsDBApiAnko
-                .doRequest(SportsDBApiAnko.searchTeam(searchQuery)),
+                .doRequest(SportsDBApiAnko.searchTeam(searchQuery)).await(),
                 TeamResponse::class.java
         )).thenReturn(response)
+
+        `when`(view.adapter).thenReturn(adapter)
 
         presenter.loadData()
 
@@ -96,11 +101,11 @@ class TeamListPresenterTest{
     }
 
     @Test
-    fun testLoadFavoriteSuccess(){
+    fun testLoadFavoriteSuccess() = runBlocking<Unit>{
 
         var iterator = mock(Iterator::class.java)
 
-        presenter.start(adapter,favoriteTeamDB)
+        presenter.start(favoriteTeamDB)
 
         `when`(favoriteTeamDB.getAll()).thenReturn(listFav)
 
@@ -110,6 +115,8 @@ class TeamListPresenterTest{
 
         `when` (listFav.iterator()).thenReturn(iterator as Iterator<FavTeam>)
 
+        `when` (view.adapter).thenReturn(adapter)
+
         presenter.loadFavorite()
 
         verify(view).loading(false)
@@ -118,13 +125,15 @@ class TeamListPresenterTest{
     @Test
     fun testLoadFavoriteEmpty(){
 
-        presenter.start(adapter,favoriteTeamDB)
+        presenter.start(favoriteTeamDB)
 
         `when`(favoriteTeamDB.getAll()).thenReturn(listFav)
 
         `when`(listFav.size).thenReturn(listSize)
 
         `when` (listFav.isEmpty()).thenReturn(true)
+
+        `when`(view.adapter).thenReturn(adapter)
 
         presenter.loadFavorite()
 
@@ -135,10 +144,12 @@ class TeamListPresenterTest{
     @Test
     fun testLoadTeamSuccess(){
 
-        presenter.start(adapter,favoriteTeamDB)
+        presenter.start(favoriteTeamDB)
 
         `when` (response.teams).thenReturn(list, mutableListOf())
         `when` (list.isEmpty()).thenReturn(false)
+
+        `when` (view.adapter).thenReturn(adapter)
 
         presenter.loadTeam(response)
 
@@ -148,9 +159,13 @@ class TeamListPresenterTest{
     @Test
     fun testLoadTeamEmpty(){
 
-        presenter.start(adapter,favoriteTeamDB)
+        presenter.start(favoriteTeamDB)
 
         `when` (response.teams).thenReturn(null)
+
+        `when` (view.data).thenReturn(list)
+
+        `when` (view.adapter).thenReturn(adapter)
 
         presenter.loadTeam(response)
 

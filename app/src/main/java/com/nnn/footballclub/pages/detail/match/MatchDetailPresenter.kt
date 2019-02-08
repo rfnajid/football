@@ -9,6 +9,7 @@ import com.nnn.footballclub.model.responses.TeamResponse
 import com.nnn.footballclub.utils.Global
 import com.nnn.footballclub.utils.base.BaseDetailContract
 import com.nnn.footballclub.utils.network.SportsDBApiAnko
+import com.nnn.footballclub.utils.provider.CoroutineContextProvider
 import kotlinx.coroutines.*
 
 /**
@@ -16,7 +17,8 @@ import kotlinx.coroutines.*
  */
 
 class MatchDetailPresenter (private var event : Event,
-                            private val view : BaseDetailContract._View<Event>
+                            private val view : BaseDetailContract._View<Event>,
+                            var coroutineContext: CoroutineContextProvider = CoroutineContextProvider()
 ) : BaseDetailContract._Presenter {
 
     private lateinit var context : Context

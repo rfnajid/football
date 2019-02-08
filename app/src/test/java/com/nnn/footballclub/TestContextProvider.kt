@@ -9,5 +9,6 @@ import kotlin.coroutines.CoroutineContext
  * Created by ridhaaaaazis on 24/05/18.
  */
 open class TestContextProvider : CoroutineContextProvider() {
-    override val main: CoroutineContext = Dispatchers.Main
+    override val main: CoroutineContext = Dispatchers.Unconfined
+
 }
